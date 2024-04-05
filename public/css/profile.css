@@ -1,0 +1,46 @@
+.profile-section {
+  max-width: 1200px; /* Or any max-width that suits your design */
+}
+
+.profile-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.profile-picture {
+  flex-shrink: 0; /* Prevent the image from shrinking smaller than its width */
+  width: 50%; /* Increase the width percentage to make the image larger */
+  max-width: 30%; /* Increase the max-width as needed */
+  object-fit: cover; /* This will ensure that the image covers the area nicely */
+  border-radius: 5px; /* Optional: if you want rounded corners on the image */
+}
+
+.text-container {
+  flex: 1; /* Takes the rest of the space */
+  padding-left: 20px; /* Spacing between text and image */
+}
+
+.profile-content {
+  margin-top: 0;
+  margin-bottom: 1em; /* Spacing between paragraphs */
+  text-align: justify;
+  hyphens: auto;
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
+  }
+
+  .profile-picture {
+    width: 100%;
+    height: auto;
+    max-width: none;
+  }
+
+  .text-container {
+    padding-left: 0;
+  }
+}
+
+

@@ -1,6 +1,6 @@
 # Dependencies
-markdown:         redcarpet
-highlighter:      pygments
+markdown:         kramdown
+highlighter:      Rouge
 
 # Permalinks
 permalink:        pretty
@@ -13,8 +13,8 @@ url:              http://hyde.getpoole.com
 baseurl:          /
 
 author:
-  name:           'Mark Otto'
-  url:            https://twitter.com/mdo
+  name:           'Yongjie Yu'
+  url:            
 
 paginate:         5
 
@@ -23,3 +23,8 @@ version:          2.1.0
 
 github:
   repo:           https://github.com/poole/hyde
+
+plugins:
+  - jekyll-gist
+  - jekyll-sitemap
+  - jekyll-seo-tag
