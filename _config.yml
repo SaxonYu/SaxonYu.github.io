@@ -10,7 +10,7 @@ title:            Saxxon
 tagline:          'All Things Cybersecurity'
 description:      'Explore the Unexplored'
 url:              https://saxonyu.github.io/
-baseurl:          '/'
+baseurl:          ''
 
 author:
   name:           'Yongjie Yu'
