@@ -96,7 +96,9 @@ a.sidebar-nav-item:focus {
   text-decoration: underline;
 }
 .sidebar-nav-item.active {
-  font-weight: bold;
+  font-weight: bold; /* Makes the text bold */
+  text-decoration: underline; /* Adds an underline */
+  padding: 0.5em; /* Optional: adds some padding around the text */
 }
 
 /* Sticky sidebar
