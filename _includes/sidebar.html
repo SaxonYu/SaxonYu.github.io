@@ -1,7 +1,7 @@
 <div class="sidebar">
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
-      <img src="{{ '/' | relative_url }}public/avatar.png" alt="avatar" class="avatar">
+      <img Class="avatar" src="{{ '/' | relative_url }}public/avatar.png" alt="avatar" class="avatar">
       <h1>
         <a href="{{ '/' | relative_url }}">
           {{ site.title }}
@@ -31,14 +31,3 @@
     <p>&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
   </div>
 </div>
-
-<script>
-  function toggleSidebar() {
-    var sidebar = document.querySelector('.sidebar');
-    if (sidebar.style.display === 'block') {
-      sidebar.style.display = 'none';
-    } else {
-      sidebar.style.display = 'block';
-    }
-  }
-</script>

@@ -55,23 +55,19 @@ html {
 
  /* Mobile CSS */
 .sidebar {
-  display: none; /* hide sidebar for mobile */
   text-align: center;
   padding: 2rem 1rem;
   color: rgba(255,255,255,.5);
   background-color: #202020;
 }
 
-/* Hamburger button styling */
-.hamburger-button {
-  display: block; /* hide hamburger by default */
-  cursor: pointer;
+.sidebar-about .avatar {
+  display: none; /* hide avatar image for mobile */
 }
 
 /* Desktop CSS */
 @media (min-width: 48em) {
   .sidebar {
-    display: block;
     position: fixed;
     top: 0;
     left: 0;
@@ -79,10 +75,10 @@ html {
     width: 18rem;
     text-align: left;
   }
-
-  .hamburger-button {
-    display: none; /* show hamburger button on mobile */
-  }
+  /* avatar section */
+  .sidebar-about .avatar {
+    display: block;
+    }
 }
 
 /* Sidebar links */
