@@ -54,6 +54,7 @@ html {
  */
 
 .sidebar {
+  display: none; /* hide sidebar for mobile */
   text-align: center;
   padding: 2rem 1rem;
   color: rgba(255,255,255,.5);
@@ -62,13 +63,13 @@ html {
 
 /* Hamburger button styling */
 .hamburger-button {
-  display: none; /* hide hamburger by default */
+  display: block; /* hide hamburger by default */
   cursor: pointer;
 }
 
 @media (min-width: 48em) {
   .sidebar {
-    display: none; /* hide sidebar for mobile */
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
@@ -78,7 +79,7 @@ html {
   }
 
   .hamburger-button {
-    display: block; /* show hamburger button on mobile */
+    display: none; /* show hamburger button on mobile */
   }
 }
 
