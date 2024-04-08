@@ -29,3 +29,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-paginate
+
+# Google Analytics
+google_analytics: G-D5PTY2GKTV
