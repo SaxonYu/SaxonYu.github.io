@@ -53,6 +53,7 @@ html {
  * out above content in mobile and later moves to the side with wider viewports.
  */
 
+ /* Mobile CSS */
 .sidebar {
   display: none; /* hide sidebar for mobile */
   text-align: center;
@@ -67,6 +68,7 @@ html {
   cursor: pointer;
 }
 
+/* Desktop CSS */
 @media (min-width: 48em) {
   .sidebar {
     display: block;
