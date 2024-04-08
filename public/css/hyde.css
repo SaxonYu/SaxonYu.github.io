@@ -59,14 +59,26 @@ html {
   color: rgba(255,255,255,.5);
   background-color: #202020;
 }
+
+/* Hamburger button styling */
+.hamburger-button {
+  display: none; /* hide hamburger by default */
+  cursor: pointer;
+}
+
 @media (min-width: 48em) {
   .sidebar {
+    display: none; /* hide sidebar for mobile */
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     width: 18rem;
     text-align: left;
+  }
+
+  .hamburger-button {
+    display: block; /* show hamburger button on mobile */
   }
 }
 

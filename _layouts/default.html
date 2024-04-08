@@ -4,12 +4,25 @@
   {% include head.html %}
 
   <body>
-
+    <!-- Hamburger Button -->
+    <button class="hamburger-button" onclick="toggleSidebar()">☰</button>
     {% include sidebar.html %}
 
     <div class="content container">
       {{ content }}
     </div>
+    
+    <script>
+      // JavaScript function to toggle the sidebar
+      function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        if (sidebar.style.display === "block") {
+          sidebar.style.display = "none";
+        } else {
+          sidebar.style.display = "block";
+        }
+      }
+    </script>
 
   </body>
 </html>
