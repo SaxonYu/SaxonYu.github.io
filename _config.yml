@@ -25,10 +25,19 @@ github:
   repo:           https://github.com/SaxonYu/saxonyu.github.io
 
 plugins:
-  - jekyll-gist
   - jekyll-sitemap
+  - jekyll-gist
   - jekyll-seo-tag
   - jekyll-paginate
+  - jekyll-toc
+
+# Enable TOC by default
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      toc: true
 
 # Google Analytics
 google_analytics: G-D5PTY2GKTV

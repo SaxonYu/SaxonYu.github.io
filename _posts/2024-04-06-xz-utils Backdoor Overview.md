@@ -4,7 +4,7 @@ title: "From Compression to Compromise: xz-utils Backdoor Overview"
 ---
 On March 29, 2024, an upstream supply-chain poisoning targeting a popular file compression tool was uncovered by Andres Freund. Versions 5.6.0 and 5.6.1 of xz-utils, after installation, contain a backdoor ([CVE-2024-3094](https://nvd.nist.gov/vuln/detail/CVE-2024-3094)). The actual attack path is extremely complicated, involving sophisticated social engineering, code obfuscation, and advanced evasion techniques such as function hooking, sandbox escaping, etc. In the rest of the article,  I'll delve into the sophistication of the social engineering tactics employed and provide a high-level summary of the technical details. There's a lot to uncover, so I plan to circle back with a deeper technical exploration in a future post. There’s plenty to learn and share!
 
-# Background: 
+# Background
 The mastermind responsible for planting the backdoor uses the pseudonyms Jia Tan and JiaT75 on GitHub, dedicated over two years to a stealthy operation. By submitting legitimate bug fixes and employing social engineering, Jia Tan gradually took over and started embedding malicious code snippets into the xz-utils project. The infiltration remained undetected until March 29, 2024, when Andres Freund, a vigilant Microsoft employee, uncovered the backdoor.
 
 ## Infiltration Operation
@@ -26,7 +26,7 @@ The involvement of Jigar Kumar and Dennis Ens, whether coincidental or not, subt
 
 ## Here Comes the Sherlock 
 Andres Freund, who was conducting micro-benchmarking at the time, noticed an unusual use of CPU time in the sshd process, particularly with liblzma, a component of the xz-utils package. After a careful analysis, Andres Freund filed a report to oss-security revealing the backdoor. It's surprising that what seemed to be minor Valgrind errors and a sudden increase in CPU usage were actually indicators of a malicious backdoor. Freund, not being a security researcher or malware analyst, made an incredible discovery from details that many would have easily overlooked.![Sherlock1]({{ '/' | relative_url }}public/screenshots/xz-utils_Backdoor_Overview/Sherlock1.png){:style="display:block; margin-left:auto; margin-right:auto"}
-# Technical Overview:
+# Technical Overview
 ## Basic Information
 - The actual exploit code is heavily obfuscated and resides in the test files in the `tests/` folder within the Git Repository. Meanwhile, the script `build-to-host.m4` deobfuscate and unpacks the exploit code is included within the released tarball.
 
@@ -43,7 +43,7 @@ Andres Freund, who was conducting micro-benchmarking at the time, noticed an unu
 
 3. The final stage in this intricate attack sequence involves running the second bash script to extract the shared object file `liblzma_la-crc64-fast.o`. This object is then compiled into the compromised `liblzma` library. 
 
-# Conclusion: 
+# Conclusion
 The xz-utils backdoor is the most sophisticated supply-chain attack known to the date. If it wasn't for Andres Freund, the potential ramifications for the open-source ecosystem could have been catastrophic. 
 
 It is also heartening to witness the global security research community rally to the cause. Together, they are dissecting the attack, sharing insights, and fortifying defenses, ensuring that knowledge gleaned from this breach will serve as a reinforcement against future threats.
