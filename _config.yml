@@ -29,15 +29,6 @@ plugins:
   - jekyll-gist
   - jekyll-seo-tag
   - jekyll-paginate
-  - jekyll-toc
-
-# Enable TOC by default
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      toc: true
 
 # Google Analytics
 google_analytics: G-D5PTY2GKTV
